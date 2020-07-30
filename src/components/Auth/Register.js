@@ -10,7 +10,8 @@ class Register extends Component {
         password:"",
         passwordConfirmation:"",
         errors:[],
-        loading:false
+        loading:false,
+        usersRef: app.database().ref('users')
     };
     isPasswordValid =({password,passwordConfirmation})=>{
         if (password.length<6||passwordConfirmation.length<6){
@@ -38,7 +39,9 @@ class Register extends Component {
                         photoURL:`http://gravatar.com/avatar/${md5(createdUser.user.email)}?d=identicon`
                     })
                         .then(()=>{
-                            this.setState({loading:false})
+                            this.saveUser(createdUser).then(()=>{
+                                console.log("user saved");
+                            })
                         })
                         .then(()=>{
                             console.log('user saved')
@@ -54,6 +57,12 @@ class Register extends Component {
                     this.setState({errors:this.state.errors.concat(err)})
                 })
         }
+    };
+    saveUser = createdUser=>{
+        return this.state.usersRef.child(createdUser.user.uid).set({
+            name:createdUser.user.displayName,
+            avatar:createdUser.user.photoURL
+        });
     };
     isFormValid=()=>{
         let errors=[];
