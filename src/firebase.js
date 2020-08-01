@@ -4,6 +4,7 @@ import "firebase/database"
 import "firebase/storage"
 
 
+
 const firebaseConfig = {
     apiKey: "AIzaSyBCllT3q81tQHVKv-twwvOGm5qAP-ErSRY",
     authDomain: "slack-demo-e94d8.firebaseapp.com",

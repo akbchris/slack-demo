@@ -27,7 +27,7 @@ class Login extends Component {
                     console.log(signedInUser);
                 })
                 .catch(err=>{
-                    console.log(err)
+                    console.log(err);
                     this.setState({
                         errors:this.state.errors.concat(err),
                         loading:false

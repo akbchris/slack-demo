@@ -17,39 +17,44 @@ import {createStore} from "redux";
 import {Provider,connect} from "react-redux";
 import {composeWithDevTools} from "redux-devtools-extension";
 import rootReducer from "./reducer";
-import {setUser} from "./action";
+import {setUser,clearUser} from "./action";
 import Spinner from "./Spinner";
 
 const store = createStore(rootReducer,composeWithDevTools());
 class Root extends React.Component{
+
     componentDidMount() {
-        app.auth().onAuthStateChanged(user=>{
-            if(user){
-                console.log(this.props.isLoading);
+        app.auth().onAuthStateChanged(user => {
+            if (user) {
+                // console.log(user);
                 this.props.setUser(user);
-                console.log(user);
-                this.props.history.push("/")
+                this.props.history.push("/");
+            } else {
+                this.props.history.push("/login");
+                this.props.clearUser();
             }
-        })
+        });
     }
 
     render() {
-        return this.props.isLoading? <Spinner/>:(
-
-                <Switch>
-                    <Route exact path="/" component={App}/>
-                    <Route path="/login" component={Login}/>
-                    <Route path="/register" component={Register}/>
-                </Switch>
-            );
+        return this.props.isLoading ? (
+            <Spinner/>
+        ) : (
+            <Switch>
+                <Route exact path="/" component={App} />
+                <Route path="/login" component={Login} />
+                <Route path="/register" component={Register} />
+            </Switch>
+        );
     }
 }
 
 const mapStateFromProps=state=>({
     isLoading: state.user.isLoading
+
 });
 
-const RootWithAuth= withRouter(connect(mapStateFromProps,{setUser})(Root));
+const RootWithAuth= withRouter(connect(mapStateFromProps,{setUser,clearUser})(Root));
 
 ReactDOM.render(
     <Provider store={store}>
