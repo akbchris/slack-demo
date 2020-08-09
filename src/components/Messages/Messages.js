@@ -10,7 +10,11 @@ class Messages extends React.Component {
         channel:this.props.currentChannel,
         user:this.props.currentUser,
         messageLoading:true,
-        messages:[]
+        messages:[],
+        numUniqueUsers:'',
+        searchTerm:'',
+        searchLoading:false,
+        searchResults:[]
     };
     componentDidMount() {
         //第一次load完 添加监视器
@@ -35,8 +39,21 @@ class Messages extends React.Component {
                 messageLoading:false
             })
             //console.log(loadedMessage);
+            this.countUniqueUsers(loadedMessage);
         })
     };
+    countUniqueUsers=messages=>{
+        const uniqueUsers=messages.reduce((pre,cur)=>{
+            if (!pre.includes(cur.user.name)){
+                pre.push(cur.user.name)
+            }
+            return pre
+        },[])
+        const numUniqueUsers=`${uniqueUsers.length} 位用户`;
+        this.setState({
+            numUniqueUsers:numUniqueUsers
+        })
+    }
     displayMessages=messages=>(
       messages.length>0&&messages.map(message=>(
           <Message
@@ -45,12 +62,39 @@ class Messages extends React.Component {
           user={this.state.user}
           />
       )));
-
+    displayChannelName = (channel)=>{
+        return channel?`#${channel.name}`:''
+    }
+    handleSearchChange=event=>{
+        this.setState({
+            searchTerm:event.target.value,
+            searchLoading:true
+        },()=>{
+            this.handleSearchMessages()
+        })
+    }
+    handleSearchMessages=()=>{
+        const channelMessages=[...this.state.messages];
+        const regex = new RegExp(this.state.searchTerm,'gi')
+        const searchResult = channelMessages.reduce((pre,cur)=>{
+            if (cur.content.match(regex)){
+                pre.push(cur);
+            }
+            return pre
+        },[])
+        this.setState({
+            searchResult:searchResult
+        })
+    }
     render() {
-        const {messagesRef,channel,user,messageLoading,messages} = this.state;
+        const {messagesRef,channel,user,numUniqueUsers,messages} = this.state;
         return (
             <React.Fragment>
-                <MessagesHeader />
+                <MessagesHeader
+                    channelName={this.displayChannelName(channel)}
+                    numUniqueUsers={numUniqueUsers}
+                    handleSearchChange={this.handleSearchChange()}
+                />
 
                 <Segment>
                     <Comment.Group className="messages">{this.displayMessages(messages)}</Comment.Group>

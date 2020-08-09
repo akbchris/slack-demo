@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import {Header, Segment, Icon, Input} from "semantic-ui-react";
 
 class MessagesHeader extends Component {
+
     render() {
+        const {channelName,numUniqueUsers,handleSearchChange} = this.props;
         return (
             <Segment clearing>
                 <Header fluid={'true'}
@@ -11,11 +13,11 @@ class MessagesHeader extends Component {
                 style={{marginBottom:0}}>
                     <span>
                         <Icon name={'star outline'} color={'black'}/>
-                        频道
+                        {channelName}
 
                     </span>
                     <Header.Subheader>
-                        2 USERS
+                        {numUniqueUsers||'0位用户'}
                     </Header.Subheader>
                 </Header>
                 <Header floated={"right"}>
