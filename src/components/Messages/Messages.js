@@ -77,27 +77,37 @@ class Messages extends React.Component {
         const channelMessages=[...this.state.messages];
         const regex = new RegExp(this.state.searchTerm,'gi')
         const searchResult = channelMessages.reduce((pre,cur)=>{
-            if (cur.content.match(regex)){
+            if (cur.content.match(regex)&&cur.content){
                 pre.push(cur);
             }
             return pre
         },[])
         this.setState({
-            searchResult:searchResult
+            searchResults:searchResult
         })
+
+        setTimeout(()=>{
+            this.setState({
+                searchLoading:false
+            })
+        },1000)
     }
+
     render() {
-        const {messagesRef,channel,user,numUniqueUsers,messages} = this.state;
+        const {messagesRef,channel,user,numUniqueUsers,messages,searchTerm,searchResults,searchLoading} = this.state;
         return (
             <React.Fragment>
                 <MessagesHeader
                     channelName={this.displayChannelName(channel)}
                     numUniqueUsers={numUniqueUsers}
-                    handleSearchChange={this.handleSearchChange()}
+                    searchLoading={searchLoading}
+                    handleSearchChange={this.handleSearchChange}
                 />
 
                 <Segment>
-                    <Comment.Group className="messages">{this.displayMessages(messages)}</Comment.Group>
+                    <Comment.Group className="messages">
+                        {searchTerm?this.displayMessages(searchResults):this.displayMessages(messages)}
+                    </Comment.Group>
                 </Segment>
 
                 <MessagesForm

@@ -1,68 +1,42 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# ***Slack-DEMO***
+##功能
+使用实时Firebase数据库即时发送和接收消息
 
-In the project directory, you can run:
+使用Firebase存储上传和显示图像消息
 
-### `yarn start`
+通知以在其他渠道中显示新消息
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+在我们的聊天中向其他用户发送直接消息
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+跟踪/显示用户何时在线/离线
 
-### `yarn test`
+在创建的频道中搜索消息
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+自定义动画，以查看其他用户何时在同一频道中键入内容
 
-### `yarn build`
+创建，裁剪和上传用户头像
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+最喜欢/最不喜欢的公共频道的能力
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+使用表情符号选择器组件将表情符号添加到我们的消息中
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+使用Firebase进行用户身份验证
 
-### `yarn eject`
+登录和注册表单的表单验证
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Redux的状态管理，具有简单明了的模式
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+使用语义UI React创建出色的用户界面
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+React Router 4的基本功能（Switch组件，withRouter HOC，历史对象）
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+与ES6 / 7协同工作
 
-## Learn More
+有用的浏览器工具，例如React / Redux Dev Tools
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+使用Firebase规则保护我们的应用程序安全
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+使用Firebase工具将聊天应用程序部署到Web
 
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+键盘快捷键可快速发送消息
