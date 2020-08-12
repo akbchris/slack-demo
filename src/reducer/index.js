@@ -4,6 +4,7 @@ import {combineReducers} from "redux";
 const initialState={
     currentUser:null,
     isLoading:true,
+
 };
 const user_reducer = (state=initialState,action)=>{
     switch (action.type) {
@@ -22,7 +23,8 @@ const user_reducer = (state=initialState,action)=>{
     }
 };
 const initialChannelState={
-    currentChannel: null
+    currentChannel: null,
+    isPrivateChannel:false
 };
 const channel_reducer=(state=initialChannelState,action)=>{
     switch (action.type) {
@@ -31,6 +33,11 @@ const channel_reducer=(state=initialChannelState,action)=>{
                 ...state,
                 currentChannel:action.payload.currentChannel
             };
+        case actionTypes.SET_PRIVATE_CHANNEL:
+            return {
+                ...state,
+                isPrivateChannel: action.payload.isPrivateChannel
+            }
         default:
             return state;
     }

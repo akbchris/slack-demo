@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Menu,Icon} from "semantic-ui-react";
 import app from "../../firebase";
+import {setCurrentChannel,setPrivateChannel} from "../../action";
+import {connect} from 'react-redux'
 class DirectMessages extends Component {
     state={
         users:[],
@@ -31,12 +33,12 @@ class DirectMessages extends Component {
         this.state.connectedRef.on("value", snap => {
             if (snap.val() === true) {
                 const ref = this.state.presenceRef.child(currentUserUid);
-                ref.set(true).then(r => console.log(r));
+                ref.set(true).then();
                 ref.onDisconnect().remove(err => {
                     if (err !== null) {
                         console.error(err);
                     }
-                }).then(r => console.log(r));
+                }).then();
             }
         });
 
@@ -63,7 +65,22 @@ class DirectMessages extends Component {
             users:updatedUser
         })
     }
-    isUserOnline =(user)=>user.status==='online'
+    isUserOnline =(user)=>user.status==='online';
+    changeUserChannel =(user)=>{
+        const channelId=this.getChannelId(user.uid);
+        const channelData={
+            id:channelId,
+            name:user.name,
+        };
+        this.props.setCurrentChannel(channelData);
+        this.props.setPrivateChannel(true);
+    };
+    getChannelId = userId => {
+        const currentUserId = this.state.user.uid;
+        return userId < currentUserId
+            ? `${userId}/${currentUserId}`
+            : `${currentUserId}/${userId}`;
+    };
     render() {
         const {users} = this.state
         return (
@@ -78,7 +95,7 @@ class DirectMessages extends Component {
 
                     <Menu.Item
                         key={user.uid}
-                        onClick={() => console.log(user)}
+                        onClick={()=>{this.changeUserChannel(user)}}
                         style={{opacity:0.7,fontStyle:'italic'}}>
                     <Icon name={'circle'}
                      color={this.isUserOnline(user)?'green':'red'}/>
@@ -90,4 +107,6 @@ class DirectMessages extends Component {
     }
 }
 
-export default DirectMessages;
+export default connect(null,
+    { setCurrentChannel, setPrivateChannel }
+)(DirectMessages);

@@ -2,7 +2,7 @@ import React from "react";
 import app from "../../firebase";
 import { Menu, Icon, Modal, Form, Input, Button } from "semantic-ui-react";
 import {connect} from 'react-redux';
-import {setCurrentChannel} from "../../action";
+import {setCurrentChannel,setPrivateChannel} from "../../action";
 
 class Channels extends React.Component {
     state = {
@@ -51,6 +51,8 @@ class Channels extends React.Component {
     changeChannel =channel=>{
         this.setActiveChannel(channel);
         this.props.setCurrentChannel(channel);
+        //设置公共的时候要还原
+        this.props.setPrivateChannel(false)
 
     };
     setActiveChannel=channel=>{
@@ -172,4 +174,4 @@ class Channels extends React.Component {
     }
 }
 
-export default connect(null,{setCurrentChannel})(Channels);
+export default connect(null,{setCurrentChannel,setPrivateChannel})(Channels);
